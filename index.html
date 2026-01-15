@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Document title -->
+    		<title>Weatherstar 4K for the web</title>
+	<!-- link to style sheet -->
+		<!-- my personal stylesheet -->
+		<link rel="stylesheet" href="assets/css/weatherscanfourk.css"> 
+		<!-- font awesome -->
+		<link rel="stylesheet" href="assets/css/fontawesome/css/all.css">	
+	<!-- meta tags -->
+    		<meta charset="utf-8">
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- links to javascripts -->
+		<script src="assets/js/script.js"></script>
+</head>
+<body>
+<div class = "wrapper">
+<div class = "header">
+  <div class = "row">
+    <div class = "column">
+      <div class = "segment">
+        Current<br>Conditions
+      </div>
+    </div>
+    <div class = "column">
+      <div class = "clock">
+        <div id = "clockone" onload = "currentTime()"></div>
+        <div id = "calendar" onload = "currentDate()"></div>        
+      </div>
+    </div>
+  </div>
+</div>
+<div class = "main">
+<div class="row">
+  <div class="column cond">
+    <div><h1>250 &deg;<h1><br></div>  
+    <div><h2>Meteor</h2><br></div> 
+    <div class = "fa-solid fa-meteor cond"><h2></div>
+    <div class = "wind">Wind: 500 mph SSW<br></div>  
+  </div>
+  <div class="column">
+<div id = "location" class = "newfontyellow" onload = "getLocation()"></div>
+<div id = "conditions" class = "newfont" onload = "getConditions()"></div>
+  </div>
+</div>
+</div>
+<div class = "footer"></div>
+</div>
+</body>
+</html>
