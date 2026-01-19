@@ -72,6 +72,7 @@ function currentDate()
  
   document.getElementById("calendar").innerHTML = day;
 }
+
 function currentTime() {
   let date = new Date(); 
   let hh = date.getHours();
@@ -96,9 +97,7 @@ function currentTime() {
    let time = hh + ":" + mm + ":" + ss + " " + session;
 
   document.getElementById("clockone").innerHTML = time; 
-
 }
-
 currentDate(); 
 currentTime();
 
@@ -113,7 +112,7 @@ function getLocation()
      else 
      {
        navigator.geolocation.getCurrentPosition(showPosition);  
-     }
+     }    
 } 
 
 function showPosition(position)
@@ -121,52 +120,57 @@ function showPosition(position)
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
   
-        let geocodingapi = "http://api.openweathermap.org/geo/1.0/reverse?lat=" + lat +  "&lon=" + lon + "&limit=5appid=22d65c3f0942491b57830144d0824296*/";
+        let geocodingapi = "http://api.openweathermap.org/geo/1.0/reverse?lat=" + lat +  "&lon=" + lon + "&limit=5&appid=22d65c3f0942491b57830144d0824296";
         
         fetch(geocodingapi)
-          .then((response) => {
-              return response.json();
+          .then((response) => response.json())
+          .then((data) => {          
+              document.getElementById("location").innerHTML = data[0].name; 
+              
+              getConditions(lat, lon);
               })
-          .then((data) => {   
-              myArray = JSON.parse(data);
-              return myArray;
-              })
-          .catch((err) => {
-              // Do something for an error here
-               }) ; 
-  
-        let location = myArray.name;
-        document.getElementById("location").innerHTML = location; 
-  
-        return lat, lon;
+          .catch((err) => console.error("Location error:", err));
+          
+          getConditions(lat, lon);
+}
+
+function getConditions(lat, lon)
+{
+    let apicall = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=22d65c3f0942491b57830144d0824296`;
+
+    fetch(apicall)
+    .then((response) => response.json())
+    .then((data) => {
+    
+	
+	//conditions on the left side of the screen
+    let temp = Math.round(data.main.temp);
+    let sky = data.weather[0].description;
+	let windspeed = data.wind.speed;
+	let windDir = getCardinalDirection(data.wind.deg);
+    
+	//conditions on the right side of the screen
+	let  hum = data.main.humidity;
+    let dewpoint = 0;
+    let ceiling = 0;
+    let visibility =  data.visibility; 
+    let press= data.main.pressure;
+   
+    document.getElementById("conditions_right").innerHTML = `${temp}°F <p>
+	${sky} <p>
+	Wind: ${windspeed} ${windDir}`   
+	
+    document.getElementById("conditions_left").innerHTML= `Humidity:${hum}% <p>
+	Pressure: ${press} inHg <p>
+	Visibility: ${visibility} mi`
+    })
+    .catch((err) => console.error("Weather error:", err));
+}
+
+function getCardinalDirection(angle) {
+  const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  return directions[Math.round(angle / 45) % 8];
 }
 
 getLocation();
-
-function getConditions()
-{
-let conditions = {temperturee: 0, conditions: ' ', windspeed: 0, windDirection: '', humidity: 0, dewpoint: 0, ceiling: 0, visibility: ' ', pressure: 0};
-
-const condition = "Humidity:" + conditions.humidity + "\n" 
-+ "Dewpoint:" + conditions.dewpoint + "°" + "\n" 
-+ "Ceiling:" + conditions.ceiling + "ft." + "\n" 
-+ "Visibility:" + conditions.visibility + " " + "\n" 
-+ "Pressure:" + conditions.pressure + "in." + "\n";  
-
-document.getElementById("conditions").innerHTML = condition;  
-}
-
-getConditions();
-
-let apicall = "https://api.openweathermap.org/data/2.5/weather?lat" + lat + "&lon=" + lon + "&appid=22d65c3f0942491b57830144d0824296";
-
-fetch(apicall)
-  .then((response) => {
-    return response.json();
-    })
-  .then((data) => {
-    // Work with JSON data here
-    })
-  .catch((err) => {
-    // Do something for an error here
-    }) ; 
+setInterval(currentTime, 1000);

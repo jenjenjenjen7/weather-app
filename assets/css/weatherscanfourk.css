@@ -5,7 +5,7 @@ html, body {
 }
 body{
     color: white;
-    /*background-image: linear-gradient(to bottom, #000066, #ff6600);*/
+    background-image: linear-gradient(to bottom, #000066, #ff6600);
     background: #000000;
     margin-left: 17%;
     margin-right: 17%;
@@ -27,12 +27,12 @@ body{
     /* orange to purple gradient */
     /*background-image: linear-gradient(to bottom, #ff6600, #442947);*/
     background-color: #000066; /* blue */
-    height: 12%;
+    height: 17%;
 }
 /* background for the main content */
 .main {
   background-color: #0000cc; /*blue*/
-  height: 76%;
+  height: 81%;
   margin-left: 12%;
   margin-right: 12%;
   border-style: inset;
@@ -77,7 +77,7 @@ h1 {
 .newfont {
   text-align: justify; 
   margin-left: 1.5em;
-  font-size: 1vw;
+  font-size: 2vw;
   font-weight: bold;
   color: white;
   text-shadow: 3px 3px #000000;
