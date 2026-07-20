@@ -127,16 +127,14 @@ function showPosition(position)
         fetch(geocodingapi)
           .then((response) => response.json())
           .then((data) => {          
-              document.getElementById("location").innerHTML = data[0].name;      
+              document.getElementById("location").innerHTML = data[0].name; 
+              getConditions(lat, lon, apiKey);
               })
-          .catch((err) => console.error("Location error:", err));
-          
-          getConditions(lat, lon);
+          .catch((err) => console.error("Location error:", err));          
 }
 
-function getConditions(lat, lon)
+function getConditions(lat, lon, apiKey)
 {
-    let apiKey = import.meta.env.VITE_WEATHER_API_KEY;
     let apicall = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
 
 
