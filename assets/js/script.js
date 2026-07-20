@@ -119,8 +119,9 @@ function showPosition(position)
 {
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
+        const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
   
-        let geocodingapi = "http://api.openweathermap.org/geo/1.0/reverse?lat=" + lat +  "&lon=" + lon + "&limit=5&appid=22d65c3f0942491b57830144d0824296";
+        let geocodingapi = "http://api.openweathermap.org/geo/1.0/reverse?lat=" + lat +  "&lon=" + lon + "&limit=5&appid=" + apiKey;
         
         fetch(geocodingapi)
           .then((response) => response.json())
@@ -136,7 +137,7 @@ function showPosition(position)
 
 function getConditions(lat, lon)
 {
-    let apicall = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=22d65c3f0942491b57830144d0824296`;
+    let apicall = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
 
     fetch(apicall)
     .then((response) => response.json())
