@@ -83,23 +83,28 @@ body {
   grid-row: 2;
   align-self: center;
   background-color: var(--blue-card);
-  min-height: 275px;
+  min-height: auto; 
   border-width: 8px;
   gap: 8px;  /*keeps the content off the border */
   /*new border*/
   border-style: inset;
   border-color: var(--border-light) var(--border-shadow) var(--border-shadow) var(--border-light);
-  /* old border
-  border-style: inset; 
-  border-color: #6666ff;
-  */
-  
-  padding: 4%;
+  padding: 12px 16px;
   display: flex;
-  align-items: center;
- 
-}
+  justify-content: center;
 
+}
+.weather-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  align-items: center;
+}
+.loading-state {
+  min-height: 295px;
+  width: 100%;
+  text-align: center;
+}
 /* Footer locks to row 3 */
 .footer {
   grid-column: 1 / span 8;
