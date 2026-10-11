@@ -96,13 +96,31 @@ body {
 .weather-grid {
   min-height: 295px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  line-height: 1.5;
-  /*white-space: nowrap;*/
+  grid-template-columns: .8fr 1fr;
   width: 100%;
-  align-items: start;
+  align-items: stretch;
+}
+#conditions_right {
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Keeps items grouped near the top */
+  gap: 10px;
+}
+#conditions_left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; 
+  text-align: center;
 }
 
+.indented {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* controls the vertical breathing room between rows */
+  margin-left: 20px; /* indents just the metrics block */
+}
 .loading-state {
   min-height: 295px;
   width: 100%;
@@ -142,13 +160,13 @@ body {
 }
 /* Type face styles */
 .newfont {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: var(--text-white);
   text-shadow: var(--text-shadow-heavy);
 }
 .newfontyellow {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: var(--text-yellow);
   text-shadow: var(--text-shadow);

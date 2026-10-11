@@ -102,24 +102,34 @@ export default function WeatherDashboard() {
       {weather ? (
         <>
 			<div className="weather-grid">
-				<div id="conditions_right">
-					<span className="temp">{weather.temp}°</span><br />
-					<span className="newfont">
-					    {weather.sky}
-                                            Wind: {weather.windSpeed === 0 ? "CALM" : `${weather.windDir} ${weather.windSpeed}`}<br />
-                                        </span>
+				<div id="conditions_left">
+    					<div className="temp">{weather.temp}°</div>
+    
+    					<div className="newfont">
+        					{weather.sky}
+    					</div>
+    
+    					<div className="weather-icon-container">
+        					{/* TO DO: icon*/}
+    					</div>
+    
+    					<div className="newfont">
+        					Wind: {weather.windSpeed === 0 ? "CALM" : `${weather.windDir} ${weather.windSpeed}`}
+    					</div>
 				</div>
 
-				<div id="conditions_left" className="newfont">
-					<span className="newfontyellow" id="location"> {error || locationName} </span> <br />
-					Humidity: {weather.humidity}% <br />
-					Dewpoint: {weather.dewpoint}°<br />
-    					Ceiling: {weather.sky.includes("clear") || weather.ceiling > 25000 ? "CLEAR" : 
-    						`${weather.ceiling.toLocaleString()} ft.`}<br />
- 					Visibility: {weather.visibility >= 10 ? "UNLIMITED" : `${weather.visibility}mi.`}<br />
-			                Pressure: {weather.pressure}	
+				<div id="conditions_right" className="newfont">
+					<div className="newfontyellow"> {error || locationName} </div>
+						<div className="indented">
+        						<div>Humidity:{weather.humidity}%</div>
+        						<div>Dewpoint: {weather.dewpoint}°</div>
+        						<div>Ceiling: {weather.sky.includes("clear") || weather.ceiling > 25000 ? "CLEAR" : 
+        						`${weather.ceiling.toLocaleString()} ft.`}</div>
+        						<div>Visibility: {weather.visibility >= 10 ? "UNLIMITED" : `${weather.visibility}mi.`}</div>
+                                                        <div>Pressure: {weather.pressure}</div>
+                                                </div>	
+					</div>
 				</div>
-			</div>
         </>
       ) : (
         <div className="newfont loading-state">
