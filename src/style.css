@@ -41,6 +41,7 @@ body {
 /*grid container */
 .wrapper {
   position: relative;
+  width: 100%;
   max-width: 640px;   
   aspect-ratio: 4 / 3;
   
@@ -85,21 +86,23 @@ body {
   background-color: var(--blue-card);
   min-height: auto; 
   border-width: 8px;
-  gap: 8px;  /*keeps the content off the border */
   /*new border*/
   border-style: inset;
   border-color: var(--border-light) var(--border-shadow) var(--border-shadow) var(--border-light);
   padding: 12px 16px;
   display: flex;
   justify-content: center;
-
 }
 .weather-grid {
+  min-height: 295px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  line-height: 1.5;
+  /*white-space: nowrap;*/
   width: 100%;
-  align-items: center;
+  align-items: start;
 }
+
 .loading-state {
   min-height: 295px;
   width: 100%;
@@ -109,13 +112,10 @@ body {
 .footer {
   grid-column: 1 / span 8;
   grid-row: 3;
-
   background-color: var(--blue-card);
   border-top-style: groove;
   border-width: 3px;
   border-color: var(--border-accent);
-  
-  padding: 10px;
 }
 .segment {
   /*left side header text*/
@@ -142,7 +142,6 @@ body {
 }
 /* Type face styles */
 .newfont {
-  margin-left: 1.5em;
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--text-white);
@@ -157,18 +156,6 @@ body {
 .temp {
   text-align: center;
   font-size: 3rem;
-  font-weight: bold;
-  color: var(--text-white);
-  text-shadow: var(--text-shadow-heavy);
-}
-.cond {
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--text-white);
-  text-shadow: var(--text-shadow-heavy);
-}
-.wind {
-  font-size: 1.5rem;
   font-weight: bold;
   color: var(--text-white);
   text-shadow: var(--text-shadow-heavy);

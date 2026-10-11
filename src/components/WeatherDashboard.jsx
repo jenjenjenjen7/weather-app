@@ -102,28 +102,22 @@ export default function WeatherDashboard() {
       {weather ? (
         <>
 			<div className="weather-grid">
-				<div className="cond" id="conditions_right">
-					<p className="temp">{weather.temp}°</p>
-					<p className="sky">{weather.sky}</p>
-					<p className="wind">
-                                            WIND: {weather.windSpeed === 0 ? "CALM" : `${weather.windDir} ${weather.windSpeed}`}
-                                        </p>
-
+				<div id="conditions_right">
+					<span className="temp">{weather.temp}°</span><br />
+					<span className="newfont">
+					    {weather.sky}
+                                            Wind: {weather.windSpeed === 0 ? "CALM" : `${weather.windDir} ${weather.windSpeed}`}<br />
+                                        </span>
 				</div>
 
-				<div className="cond" id="conditions_left" >
-					<p className="newfontyellow" id="location"> {error || locationName} </p>
-					<p className="newfont">Humidity: {weather.humidity}%</p>
-					<p className="newfont">Dewpoint: {weather.dewpoint}°</p>
-					<p className="newfont">
-    						Ceiling: {weather.sky.includes("clear") || weather.ceiling > 25000 ? "CLEAR" : 
-    						`${weather.ceiling.toLocaleString()} ft.`}
-  					</p>
-					<p className="newfont"> 
-						Visibility: {weather.visibility >= 10 ? "UNLIMITED" : `${weather.visibility}mi.`}
-					</p>
-					<p className="newfont">Pressure: {weather.pressure}</p>
-					
+				<div id="conditions_left" className="newfont">
+					<span className="newfontyellow" id="location"> {error || locationName} </span> <br />
+					Humidity: {weather.humidity}% <br />
+					Dewpoint: {weather.dewpoint}°<br />
+    					Ceiling: {weather.sky.includes("clear") || weather.ceiling > 25000 ? "CLEAR" : 
+    						`${weather.ceiling.toLocaleString()} ft.`}<br />
+ 					Visibility: {weather.visibility >= 10 ? "UNLIMITED" : `${weather.visibility}mi.`}<br />
+			                Pressure: {weather.pressure}	
 				</div>
 			</div>
         </>
