@@ -3,12 +3,13 @@
   --bg-dark: #000000;
   
 /* navy to orange background gradient*/
-  --bg-gradient-top: #000066; /*navy*/
-  --bg-gradient-bottom: #ff6600; /*pumpkin spice*/
+  --bg-gradient-top: #000066; /*navy*/ 
+  --bg-gradient-bottom: #FF8000; /*vivid tangerine*/
   
-/* purple to orange background gradient
-  --bg-gradient-top: #1a0033;       /* dark amethyst 
-  --bg-gradient-bottom: #e65100; /*cayenne red*/
+/* orange to brown background gradient*/  
+  --banner-grandient-top: #FF8000; /*vivid tangerine*/
+  --banner-gradient-bottom: #5E2402; /*dark walnut*/
+
   
 /* background colors*/
   --blue-card: #0022a8; /*main card and footer background*/
@@ -29,7 +30,7 @@ html, body {
   min-height: 100vh;
   background-color: var(--bg-dark);
   color: var(--text-white);
-  font-family: 'WeatherStar4000', 'Courier New', monospace;
+  font-family: 'Courier', 'Courier New', monospace;
 }
 body {
   display: flex;
@@ -64,7 +65,7 @@ body {
   display: grid;
   grid-template-columns: 1fr repeat(4, minmax(0, 1fr)) 1fr;
   align-items: end;
-  padding: 10px 10px 5px; 
+  padding: 20px 10px 5px; 
   
   background-color: var(--purple-header);
 }
@@ -74,8 +75,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(to top, #2b005a, #ff6600);
-  clip-path: polygon(0% 25%, 77% 25%, 67% 99%, 0% 100%);
+  background-image: linear-gradient(to bottom, var(--banner-grandient-top), var(--banner-gradient-bottom)); 
+  clip-path: polygon(0% 25%, 77% 25%, 70% 99%, 0% 100%);
   z-index: 1;
 } 
 /* Main content locks to row 2 */
@@ -84,7 +85,7 @@ body {
   grid-row: 2;
   align-self: center;
   background-color: var(--blue-card);
-  min-height: auto; 
+  max-height: 290px; 
   border-width: 8px;
   /*new border*/
   border-style: inset;
@@ -96,33 +97,40 @@ body {
 .weather-grid {
   min-height: 295px;
   display: grid;
-  grid-template-columns: .8fr 1fr;
+  grid-template-columns: .8fr 1.2fr;
   width: 100%;
   align-items: stretch;
 }
 #conditions_right {
-  line-height: 1.5;
+  line-height: 1.7em;
+  min-height: calc(6 * 1.7em);
+  max-height: calc(7 * 1.7em);
+  overflow: hidden;
+  white-space: pre;
+  /*width: 40ch;*/ 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Keeps items grouped near the top */
-  gap: 10px;
+  width: 100%;  
+    
+  /*justify-content: flex-start; 
+  /*gap: 10px;*/
 }
-#conditions_left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+#conditions_left { 
+  line-height: 1.5em;
+  height: calc(7 * 1.7em);
+  overflow: visible;
+  white-space: pre;
   align-items: center; 
   text-align: center;
 }
-
 .indented {
-  display: flex;
-  flex-direction: column;
-  gap: 4px; /* controls the vertical breathing room between rows */
-  margin-left: 20px; /* indents just the metrics block */
+  display: block;
+  text-align: justify;
+  text-align-last: justify;
+  margin-left: 30px; /* indents just the metrics block */
 }
 .loading-state {
-  min-height: 295px;
+  min-height: 290px;
   width: 100%;
   text-align: center;
 }
@@ -173,7 +181,15 @@ body {
 }
 .temp {
   text-align: center;
-  font-size: 3rem;
+  font-size: 4rem;
+  font-weight: bold;
+  line-height: 1;
+  color: var(--text-white);
+  text-shadow: var(--text-shadow-heavy);
+}
+.wind {
+  text-align-last: justify;
+  font-size: 1.7rem;
   font-weight: bold;
   color: var(--text-white);
   text-shadow: var(--text-shadow-heavy);

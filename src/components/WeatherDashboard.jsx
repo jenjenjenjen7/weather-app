@@ -113,17 +113,17 @@ export default function WeatherDashboard() {
         					{/* TO DO: icon*/}
     					</div>
     
-    					<div className="newfont">
-        					Wind: {weather.windSpeed === 0 ? "CALM" : `${weather.windDir} ${weather.windSpeed}`}
+    					<div className="wind">
+        					Wind: {weather.windSpeed < 1 ? "Calm" : `${weather.windDir} ${weather.windSpeed}`}
     					</div>
 				</div>
 
 				<div id="conditions_right" className="newfont">
 					<div className="newfontyellow"> {error || locationName} </div>
 						<div className="indented">
-        						<div>Humidity:{weather.humidity}%</div>
+        						<div>Humidity: {weather.humidity}%</div>
         						<div>Dewpoint: {weather.dewpoint}°</div>
-        						<div>Ceiling: {weather.sky.includes("clear") || weather.ceiling > 25000 ? "CLEAR" : 
+        						<div>Ceiling: {weather.sky.includes("clear") || weather.ceiling > 25000 ? "Unlimited" : 
         						`${weather.ceiling.toLocaleString()} ft.`}</div>
         						<div>Visibility: {weather.visibility >= 10 ? "UNLIMITED" : `${weather.visibility}mi.`}</div>
                                                         <div>Pressure: {weather.pressure}</div>
