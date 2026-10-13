@@ -1,13 +1,14 @@
 :root {
 /*weatherstar 4000, 90s color palette*/
   --bg-dark: #000000;
-  
+
 /* navy to orange background gradient*/
-  --bg-gradient-top: #000066; /*navy*/ 
-  --bg-gradient-bottom: #FF8000; /*vivid tangerine*/
+  --bg-gradient-top: #2b005a; /*indigo ink*/
+  --bg-gradient-middle: #000066; /*navy*/
+  --bg-gradient-bottom: #F96C00; /*pumpkin spice*/
   
 /* orange to brown background gradient*/  
-  --banner-grandient-top: #FF8000; /*vivid tangerine*/
+  --banner-gradient-top: #F96C00; /*pumpkin spice*/
   --banner-gradient-bottom: #5E2402; /*dark walnut*/
 
   
@@ -16,7 +17,7 @@
   --border-light: #6666ff; /*main card border medium slate blue*/
   --border-shadow: #000c4c; /*deep twilight*/
   --border-accent: #b3b3ff; /*periwinkle footer border*/
-  --purple-header: #2b005a; /*indigo ink header background*/ 
+  --purple-header: #150060; /*deep twilight header background*/ 
 /*text and shadow colors*/
   --text-white: #ffffff;
   --text-yellow: #ffff00;
@@ -43,31 +44,31 @@ body {
 .wrapper {
   position: relative;
   width: 100%;
-  max-width: 640px;   
+  min-width: 640px; 
+  min-height: 480px;  
   aspect-ratio: 4 / 3;
   
-  background-image: linear-gradient(to bottom, var(--bg-gradient-top), var(--bg-gradient-bottom)); 
+  background-image: linear-gradient(to bottom, var(--bg-gradient-top) 25%, var(--bg-gradient-middle) 25%, var(--bg-gradient-bottom)80%); 
   background-repeat: no-repeat;
   background-attachment: fixed;
   
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: 80px 1fr 70px; /* Header, Main, Footer */
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 88px 1fr 78px; /* Header, Main, Footer */
 }
 
 /* Header locks to row 1 */
 .header {
   position: relative;
-  grid-column: 1 / span 8;
-  grid-row: 1;
-
-  
-  display: grid;
-  grid-template-columns: 1fr repeat(4, minmax(0, 1fr)) 1fr;
-  align-items: end;
-  padding: 20px 10px 5px; 
+  grid-column: 1 / span 10;
+  grid-row: 1; 
   
   background-color: var(--purple-header);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 180px; /* Controls the exact space between the title and the clock */
+  
 }
 .header-banner {
   position: absolute;
@@ -75,21 +76,43 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(to bottom, var(--banner-grandient-top), var(--banner-gradient-bottom)); 
-  clip-path: polygon(0% 25%, 77% 25%, 70% 99%, 0% 100%);
+  background-image: linear-gradient(to bottom, var(--banner-gradient-top), var(--banner-gradient-bottom)); 
+  clip-path: polygon(0% 36%, 82% 36%, 74% 99%, 0% 100%);
   z-index: 1;
 } 
+.segment {
+  /*left side header text*/
+  position: relative;
+  z-index: 2;
+}
+.clock {
+  /*right side header text*/
+  position: relative;
+  z-index: 2;
+  justify-self: end;    
+  display: flex;
+  flex-direction: column; 
+  font-weight: bold;
+  font-size: 1rem;
+  text-shadow: var(--text-shadow);
+  line-height: 1.1;
+  padding: 10px 10px 8px;
+}
+.block {
+  text-align: justify; 
+  text-align-last: justify; 
+  white-space: nowrap;
+}
 /* Main content locks to row 2 */
 .main {
-  grid-column: 2 / span 6;
+  grid-column: 2 / span 8;
   grid-row: 2;
   align-self: center;
   background-color: var(--blue-card);
-  max-height: 290px; 
+  /*max-height: 274px; */
   border-width: 8px;
-  /*new border*/
   border-style: inset;
-  border-color: var(--border-light) var(--border-shadow) var(--border-shadow) var(--border-light);
+  border-color: var(--border-light);
   padding: 12px 16px;
   display: flex;
   justify-content: center;
@@ -97,7 +120,7 @@ body {
 .weather-grid {
   min-height: 295px;
   display: grid;
-  grid-template-columns: .8fr 1.2fr;
+  grid-template-columns: 1fr 1.3fr;
   width: 100%;
   align-items: stretch;
 }
@@ -119,7 +142,7 @@ body {
   display: block;
   text-align: justify;
   text-align-last: justify;
-  margin-left: 30px; /* indents just the metrics block */
+  margin-left: 33px; /* indents just the metrics block */
 }
 #conditions_left { 
   line-height: 1.5em;
@@ -144,36 +167,14 @@ body {
 }
 /* Footer locks to row 3 */
 .footer {
-  grid-column: 1 / span 8;
+  grid-column: 1 / span 10;
   grid-row: 3;
   background-color: var(--blue-card);
   border-top-style: groove;
   border-width: 3px;
   border-color: var(--border-accent);
 }
-.segment {
-  /*left side header text*/
-  position: relative;
-  z-index: 2;
-  grid-column: 2;
-}
-.clock {
-  /*right side header text*/
-  position: relative;
-  z-index: 2;
-  grid-column: 5; 
-  justify-self: end;    
-  display: flex;
-  flex-direction: column; 
-  font-weight: bold;
-  font-size: 1rem;
-  text-shadow: var(--text-shadow);
-}
-.block {
-  text-align: justify; 
-  text-align-last: justify; 
-  white-space: nowrap;
-}
+
 /* Type face styles */
 .newfont {
   font-size: 1.3rem;
@@ -181,7 +182,13 @@ body {
   color: var(--text-white);
   text-shadow: var(--text-shadow-heavy);
 }
-.newfontyellow {
+.location {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--text-yellow);
+  text-shadow: var(--text-shadow);
+}
+.segment-name {
   font-size: 1.3rem;
   font-weight: bold;
   color: var(--text-yellow);
@@ -197,6 +204,13 @@ body {
 }
 .wind {
   text-align-last: justify;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: var(--text-white);
+  text-shadow: var(--text-shadow-heavy);
+}
+.sky {
+  text-align: center;
   font-size: 1.7rem;
   font-weight: bold;
   color: var(--text-white);

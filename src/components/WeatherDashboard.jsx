@@ -134,7 +134,7 @@ export default function WeatherDashboard() {
 				<div id="conditions_left">
     					<div className="temp">{weather.temp}°</div>
     
-    					<div className="newfont">
+    					<div className="sky">
         					{weather.sky}
     					</div>
     
@@ -154,7 +154,7 @@ export default function WeatherDashboard() {
 				</div>
 
 				<div id="conditions_right" className="newfont">
-					<div className="newfontyellow"> {error || locationName} </div>
+					<div className="location"> {error || locationName} </div>
 						<div className="indented">
         						<div>Humidity: {weather.humidity}%</div>
         						<div>Dewpoint: {weather.dewpoint}°</div>
