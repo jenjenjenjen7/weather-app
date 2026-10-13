@@ -115,6 +115,12 @@ body {
   /*justify-content: flex-start; 
   /*gap: 10px;*/
 }
+.indented {
+  display: block;
+  text-align: justify;
+  text-align-last: justify;
+  margin-left: 30px; /* indents just the metrics block */
+}
 #conditions_left { 
   line-height: 1.5em;
   height: calc(7 * 1.7em);
@@ -123,12 +129,14 @@ body {
   align-items: center; 
   text-align: center;
 }
-.indented {
-  display: block;
-  text-align: justify;
-  text-align-last: justify;
-  margin-left: 30px; /* indents just the metrics block */
+.weather-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*min-height: 65px;*/
+  margin: 5px 0;
 }
+
 .loading-state {
   min-height: 290px;
   width: 100%;

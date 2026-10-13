@@ -35,6 +35,34 @@ function calculateCloudCeiling(tempF, dewPointF) {
   // Round to the nearest 100 feet for standard display
   return Math.round(ceilingFeet / 100) * 100;
 }
+function getWeatherStarDescription(id) {
+  const specificMap = {
+    800: "Clear",
+    804: "Cloudy",
+    741: "Fog",
+    500: "Light Rain",
+    511: "Freezing Rain",
+    611: "Sleet",
+    600: "Light Snow",
+    602: "Heavy Snow",
+    612: "Sleet",
+    613: "Rain / Sleet",
+    615: "Rain / Snow",
+    616: "Wintry Mix",
+  };
+
+  if (specificMap[id]) return specificMap[id];
+
+  if (id >= 200 && id < 300) return "T'Storms";
+  if (id >= 300 && id < 400) return "Showers";
+  if (id >= 500 && id < 600) return "Rain";
+  if (id >= 600 && id < 700) return "Snow / Flurries";
+  if (id >= 700 && id < 800) return "Fog / Haze";
+  if (id === 801 || id === 802) return "P. Cloudy";
+  if (id === 803) return "M. Cloudy";
+
+  return "Clear";
+}
 
 export default function WeatherDashboard() {
   const [locationName, setLocationName] = useState("Locating...");
@@ -76,7 +104,8 @@ export default function WeatherDashboard() {
 
           setWeather({
             temp: Math.round(rawTemp),
-            sky: weatherData.weather[0].description,
+	    sky: getWeatherStarDescription(weatherData.weather[0].id),
+            icon: weatherData.weather[0].icon,
             windSpeed: weatherData.wind.speed.toFixed(0),
             windDir: weatherData.wind.speed === 0 ? "" : getCardinalDirection(weatherData.wind.deg),
             humidity: rawHumidity,
@@ -110,7 +139,13 @@ export default function WeatherDashboard() {
     					</div>
     
     					<div className="weather-icon-container">
-        					{/* TO DO: icon*/}
+						{weather.icon && (
+        						<img 
+            						id="weather-icon"
+            						src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`} 
+            						alt={weather.sky || "Weather Icon"} 
+        						/>
+    						)}
     					</div>
     
     					<div className="wind">
@@ -123,7 +158,7 @@ export default function WeatherDashboard() {
 						<div className="indented">
         						<div>Humidity: {weather.humidity}%</div>
         						<div>Dewpoint: {weather.dewpoint}°</div>
-        						<div>Ceiling: {weather.sky.includes("clear") || weather.ceiling > 25000 ? "Unlimited" : 
+        						<div>Ceiling: {weather.sky.includes("Clear") || weather.ceiling > 25000 ? "Unlimited" : 
         						`${weather.ceiling.toLocaleString()} ft.`}</div>
         						<div>Visibility: {weather.visibility >= 10 ? "UNLIMITED" : `${weather.visibility}mi.`}</div>
                                                         <div>Pressure: {weather.pressure}</div>
