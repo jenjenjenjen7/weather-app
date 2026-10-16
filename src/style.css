@@ -64,10 +64,9 @@ body {
   grid-row: 1; 
   
   background-color: var(--purple-header);
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
   align-items: flex-end;
-  gap: 180px; /* Controls the exact space between the title and the clock */
   
 }
 .header-banner {
@@ -82,11 +81,14 @@ body {
 } 
 .segment {
   /*left side header text*/
+  grid-column: 3 / 6;
   position: relative;
   z-index: 2;
+  line-height: 1.1;
 }
 .clock {
   /*right side header text*/
+  grid-column: 7/ 10;
   position: relative;
   z-index: 2;
   justify-self: end;    
@@ -171,6 +173,7 @@ body {
   border-top-style: groove;
   border-width: 3px;
   border-color: var(--border-accent);
+  padding: 0 20px;
 }
 
 /* Type face styles */
