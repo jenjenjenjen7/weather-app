@@ -13,7 +13,7 @@
 
   
 /* background colors*/
-  --blue-card: #0022a8; /*main card and footer background*/
+  --blue-card: #110C9E; /*main card and footer background*/
   --border-light: #6666ff; /*main card border medium slate blue*/
   --border-shadow: #000c4c; /*deep twilight*/
   --border-accent: #b3b3ff; /*periwinkle footer border*/
@@ -45,7 +45,7 @@ body {
   position: relative;
   width: 100%;
   min-width: 640px; 
-  min-height: 480px;  
+  max-height: 480px;  
   aspect-ratio: 4 / 3;
   
   background-image: linear-gradient(to bottom, var(--bg-gradient-top) 25%, var(--bg-gradient-middle) 25%, var(--bg-gradient-bottom)80%); 
@@ -109,13 +109,17 @@ body {
   grid-row: 2;
   align-self: center;
   background-color: var(--blue-card);
-  /*max-height: 274px; */
+  max-height: 274px;
   border-width: 8px;
   border-style: inset;
   border-color: var(--border-light);
   padding: 12px 16px;
   display: flex;
   justify-content: center;
+}
+.weather-dashboard a {
+	text-decoration: none;
+	color: var(--text-yellow);
 }
 .weather-grid {
   min-height: 295px;
@@ -130,19 +134,15 @@ body {
   max-height: calc(7 * 1.7em);
   overflow: hidden;
   white-space: pre;
-  /*width: 40ch;*/ 
   display: flex;
   flex-direction: column;
   width: 100%;  
-    
-  /*justify-content: flex-start; 
-  /*gap: 10px;*/
 }
 .indented {
   display: block;
   text-align: justify;
   text-align-last: justify;
-  margin-left: 33px; /* indents just the metrics block */
+  margin-left: 33px; 
 }
 #conditions_left { 
   line-height: 1.5em;
@@ -156,10 +156,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /*min-height: 65px;*/
   margin: 5px 0;
 }
-
 .loading-state {
   min-height: 290px;
   width: 100%;
@@ -177,22 +175,22 @@ body {
 
 /* Type face styles */
 .newfont {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: var(--text-white);
   text-shadow: var(--text-shadow-heavy);
 }
 .location {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: var(--text-yellow);
   text-shadow: var(--text-shadow);
 }
 .segment-name {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: var(--text-yellow);
-  text-shadow: var(--text-shadow);
+  text-shadow: var(--text-shadow-heavy);
 }
 .temp {
   text-align: center;

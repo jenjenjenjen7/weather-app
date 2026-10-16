@@ -1,10 +1,22 @@
 import React from 'react';
 import { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 
 export default function Header() {
+  const location = useLocation();
   const [dateStr, setDateStr] = useState("");
   const [timeStr, setTimeStr] = useState("");
   
+  const getHeaderTitle = (pathname) => {
+    switch (pathname) {
+      case '/current':
+        return 'Current Conditions';
+      case `/almanac`:
+      	return `Almanac`;
+      default:
+        return 'Focal Lorecast'; // Default title for the main dashboard
+    }
+  }  
   useEffect(() => {
     const updateDateTime = () => {
       const now = new Date();
@@ -35,11 +47,13 @@ export default function Header() {
     return () => clearInterval(timer);
   }, []);
         
-  
+ 
   return (
       <header className="header">
         <div className="header-banner"></div>
-        <div className="segment segment-name">Focal Lorecast</div>
+        <div className="segment segment-name">
+        	{getHeaderTitle(location.pathname)}
+        </div>
         <div className="clock">
           <div id="clockone" className="block">{timeStr}</div>
           <div id="calendar" className="block">{dateStr}</div>
