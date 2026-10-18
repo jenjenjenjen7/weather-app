@@ -239,11 +239,11 @@ body {
   color: var(--text-white);
   text-shadow: var(--text-shadow-heavy);
 }
-@media (min-width: 768px)
+/*@media (min-width: 768px)
 body {
     background-color: #111;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
+  }*/
