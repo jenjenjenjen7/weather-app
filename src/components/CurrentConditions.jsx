@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 
+
 function getCardinalDirection(angle) {
   const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
   return directions[Math.round(angle / 45) % 8];
 }
+
 function calculateDewPointFahrenheit(tempF, humidity) {
   // Prevent Math.log(0) crashing the app if humidity is 0
   const rh = humidity === 0 ? 1 : humidity; 
@@ -35,6 +37,7 @@ function calculateCloudCeiling(tempF, dewPointF) {
   // Round to the nearest 100 feet for standard display
   return Math.round(ceilingFeet / 100) * 100;
 }
+
 function getWeatherStarDescription(id) {
   const specificMap = {
     800: "Clear",
@@ -46,8 +49,8 @@ function getWeatherStarDescription(id) {
     600: "Light Snow",
     602: "Heavy Snow",
     612: "Sleet",
-    613: "Rain / Sleet",
-    615: "Rain / Snow",
+    613: "Rain Sleet",
+    615: "Rain Snow",
     616: "Wintry Mix",
   };
 
@@ -56,12 +59,24 @@ function getWeatherStarDescription(id) {
   if (id >= 200 && id < 300) return "T'Storms";
   if (id >= 300 && id < 400) return "Showers";
   if (id >= 500 && id < 600) return "Rain";
-  if (id >= 600 && id < 700) return "Snow / Flurries";
-  if (id >= 700 && id < 800) return "Fog / Haze";
+  if (id >= 600 && id < 700) return "Snow Flurries";
+  if (id >= 700 && id < 800) return "Fog";
   if (id === 801 || id === 802) return "Partly Cloudy";
-  if (id === 803) return "M. Cloudy";
+  if (id === 803) return "Mostly Cloudy";
 
   return "Clear";
+}
+
+function getApparentTemperature(tempF, windMph, humidityPercent) {
+    if (tempF <= 50 && windMph > 3) {
+        let windChill = 35.74 + (0.6215 * tempF) - (35.75 * Math.pow(windMph, 0.16)) + (0.4275 * tempF * Math.pow(windMph, 0.16));
+        return { label: "Wind Chill", value: Math.round(windChill) + "°F" };
+    }
+    if (tempF >= 80) {
+        let heatIndex = 0.5 * (tempF + 61.0 + ((tempF - 68.0) * 1.2) + (humidityPercent * 0.094));
+        return { label: "Heat Index", value: Math.round(heatIndex) + "°F" };
+    }
+    return null; 
 }
 
 export default function CurrentConditions() {
@@ -99,6 +114,8 @@ export default function CurrentConditions() {
 	
 	  const calculatedDewPoint = calculateDewPointFahrenheit(rawTemp, rawHumidity);
 	  const calculatedCeiling = calculateCloudCeiling(rawTemp, calculatedDewPoint);
+	  const apparentInfo = getApparentTemperature(rawTemp, weatherData.wind.speed, rawHumidity);
+
           
           if (geoData[0]?.name) setLocationName(geoData[0].name);
 
@@ -113,6 +130,7 @@ export default function CurrentConditions() {
             ceiling: calculatedCeiling,
             pressure: (weatherData.main.pressure * 0.0295301).toFixed(2),
             visibility: (weatherData.visibility / 1609.34).toFixed(0),
+            apparent: apparentInfo,
           });
         } catch (err) {
           console.error("API Fetch Error:", err);
@@ -130,41 +148,36 @@ export default function CurrentConditions() {
     <main className="main">
       {weather ? (
         <>
-			<div className="weather-grid">
-				<div id="conditions_left">
-    					<div className="temp">{weather.temp}°</div>
+	<div className="weather-grid">
+		<div id="conditions_left">
+    			<div className="temp">{weather.temp}°</div>
+			<div className="sky">{weather.sky}</div>
+			<div className="weather-icon-container">
+				{weather.icon && (
+        				<img id="weather-icon"
+            				src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`} 
+            				alt={weather.sky || "Weather Icon"} />
+    					)}
+    			</div>
     
-    					<div className="sky">
-        					{weather.sky}
-    					</div>
-    
-    					<div className="weather-icon-container">
-						{weather.icon && (
-        						<img 
-            						id="weather-icon"
-            						src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`} 
-            						alt={weather.sky || "Weather Icon"} 
-        						/>
-    						)}
-    					</div>
-    
-    					<div className="wind">
-        					Wind: {weather.windSpeed < 1 ? "Calm" : `${weather.windDir} ${weather.windSpeed}`}
-    					</div>
-				</div>
+    			<div className="wind">Wind: {weather.windSpeed < 1 ? "Calm" : `${weather.windDir} ${weather.windSpeed}`}</div>
+		</div>
 
-				<div id="conditions_right" className="newfont">
-					<div className="location"> {error || locationName} </div>
-						<div className="indented">
-        						<div>Humidity: {weather.humidity}%</div>
-        						<div>Dewpoint: {weather.dewpoint}°</div>
-        						<div>Ceiling: {weather.sky.includes("Clear") || weather.ceiling > 25000 ? "Unlimited" : 
+		<div id="conditions_right" className="newfont">
+			<div className="location"> {error || locationName} </div>
+			<div className="indented">
+        			<div>Humidity: {weather.humidity}%</div>
+        			<div>Dewpoint: {weather.dewpoint}°</div>
+        			<div>Ceiling: {weather.sky.includes("Clear") || weather.ceiling > 25000 ? "Unlimited" : 
         						`${weather.ceiling.toLocaleString()} ft.`}</div>
-        						<div>Visibility: {weather.visibility >= 10 ? "UNLIMITED" : `${weather.visibility}mi.`}</div>
-                                                        <div>Pressure: {weather.pressure}</div>
-                                                </div>	
-					</div>
-				</div>
+        			<div>Visibility: {weather.visibility >= 10 ? "UNLIMITED" : `${weather.visibility}mi.`}</div>
+                                <div>Pressure: {weather.pressure}</div>
+                                {weather.apparent && (
+        			<div>{weather.apparent.label}: {weather.apparent.value}°</div>
+    				)}
+                        </div>	
+		</div>
+	</div>
         </>
       ) : (
         <div className="newfont loading-state">

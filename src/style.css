@@ -18,6 +18,8 @@
   --border-shadow: #000c4c; /*deep twilight*/
   --border-accent: #b3b3ff; /*periwinkle footer border*/
   --purple-header: #150060; /*deep twilight header background*/ 
+  --almanac-bg: #3D3D3D; /*gunmetal*/
+  
 /*text and shadow colors*/
   --text-white: #ffffff;
   --text-yellow: #ffff00;
@@ -32,13 +34,14 @@ html, body {
   background-color: var(--bg-dark);
   color: var(--text-white);
   font-family: 'Courier', 'Courier New', monospace;
-}
-body {
   display: flex;
   justify-content: center;  /*center horizontally*/
   align-items: center;      /*center vertically*/
   box-sizing: border-box;
   padding: 10px;
+}
+body {
+  
 }
 /*grid container */
 .wrapper {
@@ -48,7 +51,7 @@ body {
   max-height: 480px;  
   aspect-ratio: 4 / 3;
   
-  background-image: linear-gradient(to bottom, var(--bg-gradient-top) 25%, var(--bg-gradient-middle) 25%, var(--bg-gradient-bottom)80%); 
+  background-image: linear-gradient(to bottom, var(--bg-gradient-top) 15%, var(--bg-gradient-middle) 25%, var(--bg-gradient-bottom) 75%); 
   background-repeat: no-repeat;
   background-attachment: fixed;
   
@@ -56,7 +59,28 @@ body {
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: 88px 1fr 78px; /* Header, Main, Footer */
 }
-
+.almanac-theme {
+  position: relative;
+  width: 100%;
+  min-width: 640px; 
+  max-height: 480px;  
+  aspect-ratio: 4 / 3;
+  
+  background-image: linear-gradient(
+	to bottom, 
+		var(--bg-gradient-top) 29%, 
+		var(--bg-gradient-middle) 32%, 
+		var(--bg-gradient-bottom) 44%,
+		var(--almanac-bg) 44%,
+		var(--almanac-bg) 100%
+		);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: 88px 1fr 78px; /* Header, Main, Footer */
+}
 /* Header locks to row 1 */
 .header {
   position: relative;
@@ -82,14 +106,12 @@ body {
 .segment {
   /*left side header text*/
   grid-column: 3 / 6;
-  position: relative;
   z-index: 2;
   line-height: 1.1;
 }
 .clock {
   /*right side header text*/
   grid-column: 7/ 10;
-  position: relative;
   z-index: 2;
   justify-self: end;    
   display: flex;
@@ -217,3 +239,11 @@ body {
   color: var(--text-white);
   text-shadow: var(--text-shadow-heavy);
 }
+@media (min-width: 768px)
+body {
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
