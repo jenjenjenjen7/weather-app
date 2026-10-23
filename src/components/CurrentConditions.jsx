@@ -70,11 +70,11 @@ function getWeatherStarDescription(id) {
 function getApparentTemperature(tempF, windMph, humidityPercent) {
     if (tempF <= 50 && windMph > 3) {
         let windChill = 35.74 + (0.6215 * tempF) - (35.75 * Math.pow(windMph, 0.16)) + (0.4275 * tempF * Math.pow(windMph, 0.16));
-        return { label: "Wind Chill", value: Math.round(windChill) + "°F" };
+        return { label: "Wind Chill", value: Math.round(windChill)};
     }
     if (tempF >= 80) {
         let heatIndex = 0.5 * (tempF + 61.0 + ((tempF - 68.0) * 1.2) + (humidityPercent * 0.094));
-        return { label: "Heat Index", value: Math.round(heatIndex) + "°F" };
+        return { label: "Heat Index", value: Math.round(heatIndex)};
     }
     return null; 
 }
