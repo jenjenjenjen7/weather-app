@@ -79,6 +79,15 @@ function getApparentTemperature(tempF, windMph, humidityPercent) {
     return null; 
 }
 
+function isValidGust(gust, speed){
+    if(!gust)
+    	return false; 
+    if((gust - speed >= 5) && (gust >= 15))
+     {
+    	return true;
+     }
+}
+
 export default function CurrentConditions() {
   const [locationName, setLocationName] = useState("Locating...");
   const [weather, setWeather] = useState(null);
@@ -111,10 +120,12 @@ export default function CurrentConditions() {
           
 	  const rawTemp = weatherData.main.temp;
 	  const rawHumidity = weatherData.main.humidity;
-	
+	  
 	  const calculatedDewPoint = calculateDewPointFahrenheit(rawTemp, rawHumidity);
 	  const calculatedCeiling = calculateCloudCeiling(rawTemp, calculatedDewPoint);
 	  const apparentInfo = getApparentTemperature(rawTemp, weatherData.wind.speed, rawHumidity);
+	  const gustVal = weatherData.wind?.gust;
+          const validGust = isValidGust(gustVal, weatherData.wind.speed) ? Math.round(gustVal) : null;
 
           
           if (geoData[0]?.name) setLocationName(geoData[0].name);
@@ -125,6 +136,7 @@ export default function CurrentConditions() {
             icon: weatherData.weather[0].icon,
             windSpeed: weatherData.wind.speed.toFixed(0),
             windDir: weatherData.wind.speed === 0 ? "" : getCardinalDirection(weatherData.wind.deg),
+            windGust: validGust,
             humidity: rawHumidity,
             dewpoint: calculatedDewPoint,
             ceiling: calculatedCeiling,
@@ -161,6 +173,9 @@ export default function CurrentConditions() {
     			</div>
     
     			<div className="wind">Wind: {weather.windSpeed < 1 ? "Calm" : `${weather.windDir} ${weather.windSpeed}`}</div>
+    			{weather.windGust && (
+  				<div>Gusts to {weather.windGust}</div>
+			)}
 		</div>
 
 		<div id="conditions_right" className="newfont">
