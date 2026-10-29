@@ -173,6 +173,7 @@ body {
 /*Almanac Page*/
 
 .almanac-theme {
+  position: relative;
   background-image: linear-gradient(
 	to bottom, 
 		var(--bg-gradient-top) 28%, 
@@ -182,13 +183,29 @@ body {
 		var(--almanac-bg) 100%
 		);
 }
+.almanac-theme  main{  
+	grid-column: 2 / span 8;
+}
+.sun-section{
+	line-height: 1.2;
+}
+.sun-table th, 
+.sun-table td {
+  padding: 0 20px;
+}
+.moon-section, sun-section {
+  margin-top: 10px; 
+}
 .moon-data {
 	display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 15px;
 }
 .phases {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 2px solid #000000;
   box-shadow: 6px 4px 0px rgba(0, 0, 0, 0.8);
@@ -204,6 +221,9 @@ body {
 }
 .phase-last{
   background: linear-gradient(90deg, #B8B8B8 50%, #1B003D 50%);
+}
+.phase-name, .phase-date{
+	text-align: center;
 }
 @media (max-width: 760px) {
   body {
@@ -275,7 +295,7 @@ body {
   text-align-last: justify; 
   white-space: nowrap;
 }
- .main {
+.main {
   grid-column: 2 / span 8;
   grid-row: 2;
   align-self: center;

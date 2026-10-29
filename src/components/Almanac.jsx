@@ -94,34 +94,44 @@ if (error) return <div className="newfont">{error}</div>;
 
   return (
     <main>
-    <div className="segment-name weather-dashboard loading-state">
-  	<div className="newfontyellow">
-    		{sunTimes.map((item, index) => (
-      		<span key={index} className="newfontyellow">{item.dayName} </span>
-                ))}
-         </div>
-  	<div className="rise-row">
-    		<span className="newfont">Sunrise:</span>
-    		{sunTimes.map((item, index) => (
-      		<span key={index} className="newfont">{item.sunrise} </span>
-    		))}
-        </div>
-  	<div className="set-row">
-   		<span className="newfont">Sunset:</span>
-    		{sunTimes.map((item, index) => (
-      		<span key={index} className="newfont">{item.sunset} </span>
-    		))}
-  	</div>    
-    Moon Data:
-        <div className="moon-data newfont">
-          {moonData.map((item, index) => (
-              <div key={index} className={`phases ${item.className}`}>
-              	<div className="phase-name">{item.name}</div>
-              	<span className="phase-date">{item.formattedDate}</span>
-              </div>
-          ))}
-        </div>
-    </div>
+  	<section className="sun-section">
+  	<table className="sun-table">
+        <thead>
+          	<tr>
+            	<th></th>
+            	{sunTimes.map((item, i) => (
+              	<th key={i} className="segment-name">{item.dayName}</th>
+        	))}
+          	</tr>
+        </thead>
+        <tbody>
+          	<tr>
+            		<td className="newfont">Sunrise:</td>
+           		{sunTimes.map((item, i) => (
+              		<td className="newfont" key={i}>{item.sunrise}</td>
+            		))}
+          	</tr>
+          	<tr>
+            		<td className="newfont">Sunset:</td>
+            		{sunTimes.map((item, i) => (
+              		<td className="newfont" key={i}>{item.sunset}</td>
+           		))}
+          	</tr>
+        </tbody>
+      	</table>
+        </section>
+	<section className="moon-section">
+			<div className="segment-name">Moon Data:</div>
+  			<div className="moon-data newfont">
+    				{moonData.map((item, index) => (
+      					<div key={index} className="moon-item">
+        					<div className="phase-name">{item.name}</div>
+        					<div className={`phases ${item.className}`}></div>
+        					<div className="phase-date">{item.formattedDate}</div>
+      					</div>
+    				))}
+  			</div>
+        	</section>
     </main>
   );
 }
