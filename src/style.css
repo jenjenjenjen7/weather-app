@@ -42,16 +42,7 @@ body {
 .wrapper {
   background-image: linear-gradient(to bottom, var(--bg-gradient-top) 15%, var(--bg-gradient-middle) 25%, var(--bg-gradient-bottom) 75%);  
 }
-.almanac-theme {
-  background-image: linear-gradient(
-	to bottom, 
-		var(--bg-gradient-top) 28%, 
-		var(--bg-gradient-middle) 32%, 
-		var(--bg-gradient-bottom) 44%,
-		var(--almanac-bg) 44%,
-		var(--almanac-bg) 100%
-		);
-}
+
 
 /* Header locks to row 1 */
 .header {
@@ -177,6 +168,42 @@ body {
   font-weight: bold;
   color: var(--text-white);
   text-shadow: var(--text-shadow-heavy);
+}
+
+/*Almanac Page*/
+
+.almanac-theme {
+  background-image: linear-gradient(
+	to bottom, 
+		var(--bg-gradient-top) 28%, 
+		var(--bg-gradient-middle) 32%, 
+		var(--bg-gradient-bottom) 44%,
+		var(--almanac-bg) 44%,
+		var(--almanac-bg) 100%
+		);
+}
+.moon-data {
+	display: flex;
+    flex-direction: row;
+}
+.phases {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #000000;
+  box-shadow: 6px 4px 0px rgba(0, 0, 0, 0.8);
+}
+.phase-new {
+  background: #1B003D; /* All dark */
+}
+.phase-full {
+  background: #B8B8B8; /* All silver */
+}
+.phase-first{
+  background: linear-gradient(90deg, #1B003D 50%, #B8B8B8 50%);
+}
+.phase-last{
+  background: linear-gradient(90deg, #B8B8B8 50%, #1B003D 50%);
 }
 @media (max-width: 760px) {
   body {

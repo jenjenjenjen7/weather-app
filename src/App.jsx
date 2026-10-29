@@ -4,6 +4,7 @@ import WeatherDashboard from './components/WeatherDashboard.jsx';
 import CurrentConditions from './components/CurrentConditions.jsx';
 import Almanac from './components/Almanac.jsx';
 import Footer from "./components/Footer";
+import { LocationProvider } from './components/LocationContext';
 
 
 function MainLayout() {
@@ -14,11 +15,13 @@ function MainLayout() {
   return (
     <main className={`wrapper ${isAlmanac ? 'almanac-theme' : ''}`}>
       <Header />
+      
       <Routes>
         <Route path="/" element={<WeatherDashboard />} />
         <Route path="/current" element={<CurrentConditions />} />
         <Route path="/almanac" element={<Almanac />} />
       </Routes>
+      
       <Footer />
     </main>
   );
@@ -27,7 +30,9 @@ function MainLayout() {
 export default function App() {
   return (
     <BrowserRouter>
-      <MainLayout />
+    	<LocationProvider>
+        	<MainLayout />
+	</LocationProvider>
     </BrowserRouter>
-  );
+  )
 }
