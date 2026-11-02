@@ -13,6 +13,8 @@ export default function Header() {
         return 'Current Conditions';
       case `/almanac`:
       	return `Almanac`;
+      case `/extendedforecast`:
+        return `Extended Forecast`;
       default:
         return 'Focal Lorecast'; // Default title for the main dashboard
     }
