@@ -10,7 +10,6 @@
 /* orange to brown background gradient*/  
   --banner-gradient-top: #F96C00; /*pumpkin spice*/
   --banner-gradient-bottom: #5E2402; /*dark walnut*/
-
   
 /* background colors*/
   --purple-header: #150060; /*deep twilight header background*/ 
@@ -19,9 +18,19 @@
   --border-accent: #b3b3ff; /*periwinkle footer border*/
   
   --almanac-bg: #3D3D3D; /*gunmetal*/
+/*moon colors*/
+  --moon-purple: #1B003D;
+  --moon-silver: #B8B8B8;
   
 /*extended forcast gradient*/
   --color1: #988FFF;
+  --color2: #8E84FF;
+  --color3: #8378FF;
+  --color4: #776BFF;
+  --color5: #695CFF;
+  --color6: #5747FF;
+  --color7: #4433FF;
+  --color8: #311FFF;
   
 /*text and shadow colors*/
   --text-white: #ffffff;
@@ -39,17 +48,14 @@ body {
   padding: 0;
   font-family: 'Courier', 'Courier New', monospace;
 }
-.wrapper {
-  width: 100%;
-  box-sizing: border-box;
-}
-/* Header locks to row 1 */
+/* ==========================================
+HEADER 
+==========================================*/
+
 .header {
   position: relative;
   background-color: var(--purple-header);
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  align-items: flex-end; 
+  min-height: 60px;
 }
 .header-banner {
   position: absolute;
@@ -60,17 +66,22 @@ body {
   background-image: linear-gradient(to bottom, var(--banner-gradient-top), var(--banner-gradient-bottom)); 
   clip-path: polygon(0% 36%, 82% 36%, 74% 99%, 0% 100%);
   z-index: 1;
-} 
+}   
+/*left side header text*/
 .segment {
-  /*left side header text*/
+  position: relative;
   z-index: 2;
-  line-height: 1.1;
+  padding: 36px 16px 12px 20px;
 }
- .clock {
-  /*right side header text*/
-  display: none;
- }
-/* Main content locks to row 2 */
+/*==========================================
+ MAIN 
+ ==========================================*/
+ 
+.loading-state {
+  min-height: 290px;
+  width: 100%;
+  text-align: center;
+}
 .main {
   align-self: center;
   background-color: var(--blue-card);
@@ -111,102 +122,64 @@ body {
   align-items: center;
   margin: 5px 0;
 }
-.loading-state {
-  min-height: 290px;
-  width: 100%;
-  text-align: center;
-}
+/*==========================================
+Type face styles 
+==========================================*/
 
-/* Type face styles */
-.newfont {
-  font-size: 1.5rem;
+.newfont, .blufont, .segment-name, .location, .temp, .wind, .conditions {
   font-weight: bold;
   color: var(--text-white);
   text-shadow: var(--text-shadow-heavy);
 }
-.blufont{
+.newfont, .blufont, .segment-name {
   font-size: 1.5rem;
-  font-weight: bold;
+}
+.blufont {
   color: var(--color1);
-  text-shadow: var(--text-shadow-heavy);	
+}
+.segment-name {
+  color: var(--text-yellow);
 }
 .location {
   font-size: 1.6rem;
-  font-weight: bold;
   color: var(--text-yellow);
-  text-shadow: var(--text-shadow);
-}
-.segment-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--text-yellow);
-  text-shadow: var(--text-shadow-heavy);
+  text-shadow: var(--text-shadow); 
 }
 .temp {
-  text-align: center;
   font-size: 4rem;
-  font-weight: bold;
   line-height: 1;
-  color: var(--text-white);
-  text-shadow: var(--text-shadow-heavy);
+  text-align: center;
 }
 .wind {
-  text-align-last: justify;
+  font-size: 1.7rem;
   line-height: 1.2em;
-  font-size: 1.7rem;
-  font-weight: bold;
-  color: var(--text-white);
-  text-shadow: var(--text-shadow-heavy);
+  text-align-last: justify;
 }
-.sky {
+.conditions {
+  font-size: 1.7rem;
   text-align: center;
-  font-size: 1.7rem;
-  font-weight: bold;
-  color: var(--text-white);
-  text-shadow: var(--text-shadow-heavy);
 }
+/*==========================================
+FOOTER
+==========================================*/
 .footer {
   background-color: var(--blue-card);
   border-top: 3px groove var(--border-accent);
   padding: 15px 20px;
   text-align: center;
 }
-/*Almanac Page*/
-
-.almanac-theme {
-  background-image: linear-gradient(
-	to bottom, 
-		var(--bg-gradient-top) 5%, 
-		var(--bg-gradient-middle) 10%, 
-		var(--bg-gradient-bottom) 44%,
-		var(--almanac-bg) 44%,
-		var(--almanac-bg) 100%
-		);
-}
-.almanac-theme  main{  
-	grid-column: 2 / span 10;
-}
-.sun-section{
-	line-height: 1.2;
-}
-.sun-table th, 
-.sun-table td {
-  padding: 0 20px;
-}
-.sun-table th:first-child,
-.sun-table td:first-child {
-  text-align: right;
-}
-.moon-section, sun-section {
+/*==========================================
+UTILITIES
+==========================================*/
+.top-margin {
   margin-top: 10px; 
 }
-.moon-data {
-	display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 15px;
+.left-margin {
+	margin-left: 10px;
 }
+/*==========================================
+ALMANAC
+==========================================*/
 .phases {
   width: 80px;
   height: 80px;
@@ -215,47 +188,45 @@ body {
   box-shadow: 6px 4px 0px rgba(0, 0, 0, 0.8);
 }
 .phase-new {
-  background: #1B003D; /* All dark */
+  background: var(--moon-purple); 
 }
 .phase-full {
-  background: #B8B8B8; /* All silver */
+  background: var(--moon-silver);
 }
 .phase-first{
-  background: linear-gradient(90deg, #1B003D 50%, #B8B8B8 50%);
+  background: linear-gradient(90deg, var(--moon-purple) 50%, var(--moon-silver) 50%);
 }
 .phase-last{
-  background: linear-gradient(90deg, #B8B8B8 50%, #1B003D 50%);
+  background: linear-gradient(90deg, var(--moon-silver) 50%, var(--moon-purple) 50%);
 }
 .phase-name, .phase-date{
 	text-align: center;
 }
-
-/*Extended Forecast */
-.extendedforecast-theme main {
-  grid-column: 2 / span 10; 
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 25px;
-}
+/*==========================================
+EXTENDED Forecast
+==========================================*/
+/*column gradient */
 .forecast-column {
   border: 2px solid white;
   background: linear-gradient(
     to bottom,
-    #988FFF 0% 12%,
-    #8E84FF 12% 25%,
-    #8378FF 25% 37%,
-    #776BFF 37% 50%,
-    #695CFF 50% 62%,
-    #5747FF 62% 75%,
-    #4433FF 75% 87%,
-    #311FFF 87% 100%
+    var(--color1) 0% 12%,
+    var(--color2) 12% 25%,
+    var(--color3) 25% 37%,
+    var(--color4) 37% 50%,
+    var(--color5) 50% 62%,
+    var(--color6) 62% 75%,
+    var(--color7) 75% 87%,
+    var(--color8) 87% 100%
   );
   padding: 1rem;
 }
-
+/*==========================================
+MOBILE THEME 
+==========================================*/
 @media (max-width: 760px) {
   body {
-    background-image: linear-gradient(to bottom, var(--bg-gradient-top) 10%, var(--bg-gradient-middle) 15%, var(--bg-gradient-bottom) 75%);
+	background-image: linear-gradient(to bottom, var(--bg-gradient-top) 10%, var(--bg-gradient-middle) 15%, var(--bg-gradient-bottom) 75%);
   }
   .wrapper, .almanac-theme {
 	min-height: 100vh;
@@ -264,16 +235,61 @@ body {
     flex-direction: column;
     flex: 1;
   }
-  .main {
+/*right side header text*/
+   .clock {
+	 display: none;
+ }
+.main {
 	flex: 1;  
     margin: 0 20px 0 20px;
   }
-  footer {
+/*mobile almanac background gradient*/
+.almanac-theme {
+  background-image: linear-gradient(
+	to bottom, 
+		var(--bg-gradient-top) 5%, 
+		var(--bg-gradient-middle) 10%, 
+		var(--bg-gradient-bottom) 29%,
+		var(--almanac-bg) 29% 100%
+		);
+	flex: 1;
+}
+.sun-font{
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-white);
+  text-shadow: var(--text-shadow);	
+}
+.sun-fontyellow{
+  color: var(--text-yellow);
+}
+.sun-table th, 
+.sun-table td {
+  padding: 4px 12px;
+  white-space: nowrap;
+  line-height: .95;
+}
+.sun-table th:first-child,
+.sun-table td:first-child {
+  text-align: right;
+}
+.moon-data {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 25px 25px;
+  width: 100%;
+  justify-items: center;
+}
+.footer {
+	margin-top: auto;
 	padding: 20px 20px;
     min-height: 25px;
   }
 }
-@media (min-width: 768px)
+/*==========================================
+DESKTOP THEME 
+==========================================*/
+@media (min-width: 761px)
 {
 body {
   padding: 10px;
@@ -284,7 +300,7 @@ body {
   align-items: center;      /* center vertically */
   box-sizing: border-box;
  }
-.wrapper, almanac-theme {
+.wrapper, .almanac-theme {
   background-image: linear-gradient(to bottom, var(--bg-gradient-top) 15%, var(--bg-gradient-middle) 25%, var(--bg-gradient-bottom) 75%);  
   position: relative;
   width: 100%;
@@ -297,27 +313,30 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
  }
+.almanac-theme  main{  
+	grid-column: 2 / span 10;
+}
 .header {
   position: relative;
   grid-column: 1 / span 12;
   grid-row: 1;   
-  background-color: var(--purple-header);
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   align-items: flex-end; 
 }
-.segment {
-  /*left side header text*/
+/*left side header text*/
+.segment { 
   grid-column: 3 / 6;
   z-index: 2;
   line-height: 1.1;
 }
- .clock {
-  /*right side header text*/
+/*right side header text*/
+.clock {
   display: flex;
   grid-column: 7/ 10;
   z-index: 2;
-  justify-self: end;      
+  justify-self: end; 
+  margin-bottom: 12px;  
   flex-direction: column; 
   font-weight: bold;
   font-size: 1rem;
@@ -331,6 +350,7 @@ body {
   text-align-last: justify; 
   white-space: nowrap;
 }
+/* MAIN BLUE THEME */
 .main {
   grid-column: 2 / span 10;
   grid-row: 2;
@@ -343,6 +363,7 @@ body {
   display: flex;
   justify-content: center;
 }
+/* Current Conditions */
 .weather-grid {
   min-height: 295px;
   display: grid;
@@ -357,20 +378,49 @@ body {
   line-height: 1.5em;
   height: calc(7 * 1.7em);
  }
+/* Almanac */
+/* desktop almanac background gradient*/
+.almanac-theme {
+  background-image: linear-gradient(
+	to bottom, 
+		var(--bg-gradient-top) 24%, 
+		var(--bg-gradient-middle) 28%, 
+		var(--bg-gradient-bottom) 44%,
+		var(--almanac-bg) 42%,
+		var(--almanac-bg) 100%
+		);
+}
+/* sunrise/sunset table */
+.sun-section{
+	line-height: 1.2;
+}
+.sun-table th, 
+.sun-table td {
+  padding: 0 20px;
+}
+.sun-table th:first-child,
+.sun-table td:first-child {
+  text-align: right;
+}
+/*moon spacing*/
+.moon-data {
+	display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 15px;
+}
+/* Extended Forecast */
+.extendedforecast-theme main {
+  grid-column: 2 / span 10; 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 25px;
+}
 /* Footer locks to row 3 */
 .footer {
   grid-column: 1 / span 12;
   grid-row: 3;
   padding: 0 20px;
-}
-.almanac-theme {
-  background-image: linear-gradient(
-	to bottom, 
-		var(--bg-gradient-top) 30%, 
-		var(--bg-gradient-middle) 32%, 
-		var(--bg-gradient-bottom) 44%,
-		var(--almanac-bg) 44%,
-		var(--almanac-bg) 100%
-		);
 }
 }

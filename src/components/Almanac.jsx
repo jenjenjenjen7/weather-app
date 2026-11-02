@@ -94,34 +94,34 @@ if (error) return <div className="newfont">{error}</div>;
 
   return (
     <main>
-  	<section className="sun-section">
+  	<section className="sun-section top-margin">
   	<table className="sun-table">
         <thead>
           	<tr>
             	<th></th>
             	{sunTimes.map((item, i) => (
-              	<th key={i} className="segment-name">{item.dayName}</th>
+              	<th key={i} className="segment-name sun-fontyellow">{item.dayName}</th>
         	))}
           	</tr>
         </thead>
         <tbody>
           	<tr>
-            		<td className="newfont">Sunrise:</td>
+            		<td className="newfont sun-font">Sunrise:</td>
            		{sunTimes.map((item, i) => (
-              		<td className="newfont" key={i}>{item.sunrise}</td>
+              		<td className="newfont sun-font" key={i}> {item.sunrise} </td>
             		))}
           	</tr>
           	<tr>
-            		<td className="newfont">Sunset:</td>
+            		<td className="newfont sun-font">Sunset:</td>
             		{sunTimes.map((item, i) => (
-              		<td className="newfont" key={i}>{item.sunset}</td>
+              		<td className="newfont sun-font" key={i}> {item.sunset} </td>
            		))}
           	</tr>
         </tbody>
       	</table>
         </section>
-	<section className="moon-section">
-			<div className="segment-name">Moon Data:</div>
+	<section className="moon-section top-margin">
+			<div className="segment-name left-margin">Moon Data:</div>
   			<div className="moon-data newfont">
     				{moonData.map((item, index) => (
       					<div key={index} className="moon-item">

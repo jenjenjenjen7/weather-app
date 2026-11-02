@@ -20,7 +20,7 @@ export default function CurrentConditions() {
         	<div className="weather-grid">
           		<div id="conditions_left">
             				<div className="temp">{weather.temp}°</div>
-            				<div className="sky">{weather.sky}</div>
+            				<div className="conditions">{weather.sky}</div>
             				<div className="weather-icon-container">
               				{weather.icon && (
                 			<img id="weather-icon"
@@ -32,7 +32,7 @@ export default function CurrentConditions() {
               			Wind: {weather.windSpeed < 1 ? "Calm" : `${weather.windDir} ${weather.windSpeed}`}
             			</div>
             			{weather.windGust && (
-              			<div>Gusts to {weather.windGust}</div>
+              			<div className="wind">Gusts to {weather.windGust}</div>
             			)}
          		</div>
 
