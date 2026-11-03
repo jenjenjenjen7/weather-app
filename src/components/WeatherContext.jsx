@@ -10,6 +10,7 @@ function getCardinalDirection(angle) {
 }
 
 function calculateDewPointFahrenheit(tempF, humidity) {
+  //Magnus-Tetens approximation
   const rh = humidity === 0 ? 1 : humidity; 
   const tempC = (tempF - 32) * (5 / 9);
   const a = 17.625;
@@ -75,9 +76,34 @@ function isValidGust(gust, speed) {
   return (gust - speed >= 5) && (gust >= 15);
 }
 
+function processThreeDayForecast(list) {
+  const dailyMap = {};
+
+  list.forEach((item) => {
+    const dateKey = item.dt_txt.split(' ')[0];
+    const temp = Math.round(item.main.temp);
+
+    if (!dailyMap[dateKey]) {
+      const dateObj = new Date(item.dt * 1000);
+      dailyMap[dateKey] = {
+        day: dateObj.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase(),
+        hi: temp,
+        lo: temp,
+        condition: getWeatherStarDescription(item.weather[0].id),
+        icon: item.weather[0].icon,
+      };
+    } else {
+      if (temp > dailyMap[dateKey].hi) dailyMap[dateKey].hi = temp;
+      if (temp < dailyMap[dateKey].lo) dailyMap[dateKey].lo = temp;
+    }
+  });
+
+  return Object.values(dailyMap).slice(0, 3);
+}
 export function WeatherProvider({ children }) {
   const { lat, lon, locationName: contextLocationName } = useLocation();
   const [weather, setWeather] = useState(null);
+  const [extendedForecast, setExtendedForecast] = useState([]);
   const [locationName, setLocationName] = useState("Locating...");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -97,13 +123,15 @@ export function WeatherProvider({ children }) {
     async function fetchWeatherData() {
       setLoading(true);
       try {
-        const [geoRes, weatherRes] = await Promise.all([
+        const [geoRes, weatherRes, forecastRes] = await Promise.all([
           fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`),
           fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`),
+          fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`),
         ]);
 
         const geoData = await geoRes.json();
         const weatherData = await weatherRes.json();
+        const forecastData = await forecastRes.json();
 
         const rawTemp = weatherData.main.temp;
         const rawHumidity = weatherData.main.humidity;
@@ -113,6 +141,8 @@ export function WeatherProvider({ children }) {
         const apparentInfo = getApparentTemperature(rawTemp, weatherData.wind.speed, rawHumidity);
         const gustVal = weatherData.wind?.gust;
         const validGust = isValidGust(gustVal, weatherData.wind.speed) ? Math.round(gustVal) : null;
+        
+        const calculatedExtended = processThreeDayForecast(forecastData.list);
 
         if (contextLocationName) {
           setLocationName(contextLocationName);
@@ -133,7 +163,10 @@ export function WeatherProvider({ children }) {
           pressure: (weatherData.main.pressure * 0.0295301).toFixed(2),
           visibility: (weatherData.visibility / 1609.34).toFixed(0),
           apparent: apparentInfo,
+          
         });
+        
+        setExtendedForecast(calculatedExtended);
         setError(null);
       } catch (err) {
         console.error("Weather Fetch Error:", err);
@@ -147,7 +180,7 @@ export function WeatherProvider({ children }) {
   }, [lat, lon, contextLocationName]);
 
   return (
-    <WeatherContext.Provider value={{ weather, locationName, loading, error }}>
+    <WeatherContext.Provider value={{ weather, extendedForecast, locationName, loading, error }}>
       {children}
     </WeatherContext.Provider>
   );

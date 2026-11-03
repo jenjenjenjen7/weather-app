@@ -22,8 +22,9 @@
   --moon-purple: #1B003D;
   --moon-silver: #B8B8B8;
   
-/*extended forcast gradient*/
-  --color1: #988FFF;
+/*extended forcast gradient
+8 shades of blue, don't worry about names*/
+  --color1: #988FFF; 
   --color2: #8E84FF;
   --color3: #8378FF;
   --color4: #776BFF;
@@ -220,6 +221,29 @@ EXTENDED Forecast
     var(--color8) 87% 100%
   );
   padding: 1rem;
+}
+.forecast-format {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.condition-label {
+  text-align: center;
+  width: 100%;          
+}
+.temp-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: auto;
+}
+.temp-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /*==========================================
 MOBILE THEME 
