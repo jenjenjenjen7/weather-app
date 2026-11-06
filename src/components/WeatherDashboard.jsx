@@ -15,7 +15,9 @@ export default function WeatherDashboard() {
       			<nav>
         		<Link to="/current" >Current Conditions</Link><br />
         		<Link to="/almanac" >Almanac</Link><br />
-        		<Link to="/extendedforecast">Extended Forecast</Link>
+        		<Link to="/travel" >Travel Cities Forecast</Link><br />
+        		<Link to="/extendedforecast">Extended Forecast</Link><br />
+        		<Link to="/radar">Local Radar</Link>
       			</nav>
     		</div>
     </main>

@@ -13,6 +13,8 @@ export default function Header() {
         return 'Current Conditions';
       case `/almanac`:
       	return `Almanac`;
+      case '/travel':
+        return 'Travel Cities Forecast';
       case `/extendedforecast`:
         return `Extended Forecast`;
       default:

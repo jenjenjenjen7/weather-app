@@ -98,7 +98,7 @@ function processThreeDayForecast(list) {
     }
   });
 
-  return Object.values(dailyMap).slice(0, 3);
+  return Object.values(dailyMap).slice(1, 4);
 }
 export function WeatherProvider({ children }) {
   const { lat, lon, locationName: contextLocationName } = useLocation();

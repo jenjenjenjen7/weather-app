@@ -26,11 +26,17 @@ const travelCities = [
   { city: "TAMPA", lat: 27.948, lon: -82.458 },
   { city: "WASHINGTON DC", lat: 38.907, lon: -77.036 }
 ];
-
+	
+  
 export default function TravelCitiesForecast() {
+	const [forecasts, setForecasts] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	
 	return (
-		<main>
-			
+		<main className = "travel-theme">
+
 		</main>
 	);
 }

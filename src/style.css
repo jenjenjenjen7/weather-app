@@ -32,6 +32,23 @@
   --color6: #5747FF;
   --color7: #4433FF;
   --color8: #311FFF;
+
+/*map colors*/  
+  --map-land: #5a5a5a;
+  --map-water: #103c8a;
+  
+/* Current Radar Legend Scale */
+  --precip-light-green: #00e000;
+  --precip-dark-green: #008000;
+  --precip-yellow: #ffff00;
+  --precip-orange: #ffa500;
+  --precip-red: #f50000;
+  --precip-burgundy: #7A0000;
+  --precip-incomplete: #E55A92;
+  
+/*Local Radar Header gradient*/
+  --local-radar-light: #C93EB2;
+  --local-radar-dark: #5E1D53;
   
 /*text and shadow colors*/
   --text-white: #ffffff;
@@ -52,11 +69,10 @@ body {
 /* ==========================================
 HEADER 
 ==========================================*/
-
 .header {
-  position: relative;
-  background-color: var(--purple-header);
-  min-height: 60px;
+  background-color:var(--purple-header);
+  min-height:60px;
+  position:relative
 }
 .header-banner {
   position: absolute;
@@ -259,6 +275,7 @@ MOBILE THEME
     flex-direction: column;
     flex: 1;
   }
+  
 /*right side header text*/
    .clock {
 	 display: none;
@@ -267,6 +284,9 @@ MOBILE THEME
 	flex: 1;  
     margin: 0 20px 0 20px;
   }
+/*==========================================
+ALMANAC
+==========================================*/
 /*mobile almanac background gradient*/
 .almanac-theme {
   background-image: linear-gradient(
@@ -304,6 +324,9 @@ MOBILE THEME
   width: 100%;
   justify-items: center;
 }
+/*==========================================
+FOOTER
+==========================================*/
 .footer {
 	margin-top: auto;
 	padding: 20px 20px;
@@ -315,6 +338,17 @@ DESKTOP THEME
 ==========================================*/
 @media (min-width: 761px)
 {
+.wrapper {
+	background-image: linear-gradient(to bottom, var(--bg-gradient-top) 15%, var(--bg-gradient-middle) 25%, var(--bg-gradient-bottom) 75%); 
+    position: relative;
+    width: 100%;
+    min-width: 640px; 
+    max-height: 480px;  
+    aspect-ratio: 4 / 3; 
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 88px 1fr 78px;
+}
 body {
   padding: 10px;
   min-height: 100vh;
@@ -324,14 +358,21 @@ body {
   align-items: center;      /* center vertically */
   box-sizing: border-box;
  }
-.wrapper, .almanac-theme {
-  background-image: linear-gradient(to bottom, var(--bg-gradient-top) 15%, var(--bg-gradient-middle) 25%, var(--bg-gradient-bottom) 75%);  
-  position: relative;
-  width: 100%;
-  min-width: 640px; 
-  max-height: 480px;  
-  aspect-ratio: 4 / 3; 
-  display: grid;
+.header {
+    grid-area:1/1/auto/span 12;
+    grid-template-columns:repeat(10,1fr);
+    display:grid;
+    position:relative
+}
+.wrapper.almanac-theme {   
+    background-image: linear-gradient(
+	to bottom, 
+		var(--bg-gradient-top) 24%, 
+		var(--bg-gradient-middle) 28%, 
+		var(--bg-gradient-bottom) 44%,
+		var(--almanac-bg) 42%,
+		var(--almanac-bg) 100%
+		);
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: 88px 1fr 78px; /* Header, Main, Footer */
   background-attachment: fixed;
@@ -340,33 +381,38 @@ body {
 .almanac-theme  main{  
 	grid-column: 2 / span 10;
 }
-.header {
+.wrapper.radar-theme {  
   position: relative;
-  grid-column: 1 / span 12;
-  grid-row: 1;   
+  width: 100%;
+  min-width: 640px; 
+  max-height: 480px;  
+  aspect-ratio: 4 / 3; 
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  align-items: flex-end; 
-}
+  background-image: none;
+  background-color: var(--almanac-bg);
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 100px 1fr;
+ }
 /*left side header text*/
 .segment { 
-  grid-column: 3 / 6;
+  grid-column: 3 / 8;
   z-index: 2;
   line-height: 1.1;
+  align-self: end;
+  padding-top: 36px;
 }
 /*right side header text*/
 .clock {
+  grid-column: 8 / 10;
   display: flex;
-  grid-column: 7/ 10;
+  flex-direction: column;  
   z-index: 2;
-  justify-self: end; 
-  margin-bottom: 12px;  
-  flex-direction: column; 
   font-weight: bold;
   font-size: 1rem;
   text-shadow: var(--text-shadow);
   line-height: 1.1;
-  padding: 10px 10px 8px;
+  margin-right: 20px;  
+  margin-top: 45px;
 }
 .block {
   color: var(--text-white);
@@ -374,7 +420,9 @@ body {
   text-align-last: justify; 
   white-space: nowrap;
 }
-/* MAIN BLUE THEME */
+/*==========================================
+MAIN BLUE THEME
+==========================================*/
 .main {
   grid-column: 2 / span 10;
   grid-row: 2;
@@ -402,18 +450,9 @@ body {
   line-height: 1.5em;
   height: calc(7 * 1.7em);
  }
-/* Almanac */
-/* desktop almanac background gradient*/
-.almanac-theme {
-  background-image: linear-gradient(
-	to bottom, 
-		var(--bg-gradient-top) 24%, 
-		var(--bg-gradient-middle) 28%, 
-		var(--bg-gradient-bottom) 44%,
-		var(--almanac-bg) 42%,
-		var(--almanac-bg) 100%
-		);
-}
+/*==========================================
+ALMANAC
+==========================================*/
 /* sunrise/sunset table */
 .sun-section{
 	line-height: 1.2;
@@ -434,7 +473,9 @@ body {
     width: 100%;
     margin-top: 15px;
 }
-/* Extended Forecast */
+/*==========================================
+EXTENDED Forecast
+==========================================*/
 .extendedforecast-theme main {
   grid-column: 2 / span 10; 
   display: grid;
@@ -446,5 +487,12 @@ body {
   grid-column: 1 / span 12;
   grid-row: 3;
   padding: 0 20px;
+}
+/*==========================================
+TRAVEL CITIES FORECAST
+==========================================*/
+.travel-theme {
+   grid-column: 1 / span 12;
+   background-color: var(--almanac-bg);
 }
 }
