@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "dom": "^0.0.3",
+    "leaflet": "^2.0.0-beta.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router-dom": "^7.18.4",

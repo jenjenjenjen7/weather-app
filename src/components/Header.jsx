@@ -11,6 +11,8 @@ export default function Header() {
     switch (pathname) {
       case '/current':
         return 'Current Conditions';
+      case '/regionalobservations':
+      	return 'Regional Observations';
       case `/almanac`:
       	return `Almanac`;
       case '/travel':

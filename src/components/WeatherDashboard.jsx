@@ -14,6 +14,7 @@ export default function WeatherDashboard() {
 		WeatherSTAR 4k Dashboard
       			<nav>
         		<Link to="/current" >Current Conditions</Link><br />
+        		<Link to="/regionalobservations" >Regional Observations</Link><br />
         		<Link to="/almanac" >Almanac</Link><br />
         		<Link to="/travel" >Travel Cities Forecast</Link><br />
         		<Link to="/extendedforecast">Extended Forecast</Link><br />
